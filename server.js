@@ -3,7 +3,7 @@ const path = require('path')
 const User = require('./db').User
 const session = require('express-session')
 const passport = require('./passport')
-
+var port = Number(process.env.PORT || 8000); 
 
 
 const app = express();
@@ -28,4 +28,7 @@ app.use('/', require('./common_routes').route)
 app.use('/api', require('./routes/api').route)
 
 
-app.listen(5678, () => console.log('Server started at http://localhost:5678'))
+app.use(express.static(__dirname + '/app'));
+var server = app.listen(port, function() {
+    console.log('Listening on port %d', server.address().port);
+});
